@@ -1,0 +1,25 @@
+h1 {
+  text-align: center;
+}
+.container{
+  text-align: center;
+}
+.card {
+  display: inline-block;
+  vertical-align: top;
+  font-family: system-ui;
+  background: #f06d06;
+  color: white;
+  text-align: center;
+  width: 250px;
+  height: 250px;
+  margin: 10px;
+  padding: 10px;
+}
+.read{
+  font-style:italic;
+}
+.lecture{
+  color: blue;
+  font-style: italic;
+}
