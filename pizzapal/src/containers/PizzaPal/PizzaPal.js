@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import Menu from '../../components/Menu/Menu';
 import { Grid } from 'semantic-ui-react';
 
 const PizzaPal = (props) => {
@@ -27,7 +28,7 @@ const PizzaPal = (props) => {
   return (
     <Grid divided='vertically' stackable>
         <Grid.Row centered>
-            Menu
+            <Menu menu={menuState.toppings} />
         </Grid.Row>
         <Grid.Row>
             Order

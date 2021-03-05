@@ -1,3 +1,6 @@
 .ui.container {
   margin: 2em;
 }
+.ui.red.segment {
+  margin-top: 1em;
+}
