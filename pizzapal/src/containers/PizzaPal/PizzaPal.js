@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Menu from '../../components/Menu/Menu';
 import { Grid } from 'semantic-ui-react';
+import Order from '../../components/Order/Order';
 
 const PizzaPal = (props) => {
 
@@ -30,9 +31,7 @@ const PizzaPal = (props) => {
         <Grid.Row centered>
             <Menu menu={menuState.toppings} />
         </Grid.Row>
-        <Grid.Row>
-            Order
-        </Grid.Row>
+        <Order menu={menuState.toppings}/>
   </Grid>
   )
 };
