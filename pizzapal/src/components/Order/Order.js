@@ -6,7 +6,10 @@ import Checkout from './Checkout/Checkout';
 const Order = (props) => {
   return (
     <Grid.Row columns={2} centered>
-        <Controls menu={props.menu}/>
+        <Controls 
+          menu={props.menu}
+          toppingAdded = {props.toppingAdded}
+  />
         <Checkout />
     </Grid.Row>
   )

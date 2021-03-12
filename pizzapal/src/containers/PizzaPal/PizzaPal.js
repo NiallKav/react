@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Menu from '../../components/Menu/Menu';
 import { Grid } from 'semantic-ui-react';
 import Order from '../../components/Order/Order';
+const orderToppings = [];
 
 const PizzaPal = (props) => {
 
@@ -25,13 +26,39 @@ const PizzaPal = (props) => {
           { id: 15, name: 'hot', price: .75, image: 'images/toppings/hot.jpg', alt: 'Hot Sauce' },
         ]
       });
+      const [orderState, setOrderState] = useState({
+        totalPrice: 5, 
+        chosenToppings: []
+      });
 
+      const addToppingHandler = (id) => {
+        const index = menuState.toppings.findIndex(topping => topping.id === id);
+        const chosenTopping = {
+          id: menuState.toppings[index].id,
+          name: menuState.toppings[index].alt,
+          price: menuState.toppings[index].price
+        };
+
+        orderToppings.push(chosenTopping);
+
+        const newPrice = orderState.totalPrice + menuState.toppings[index].price;
+
+        setOrderState({
+          totalPrice: newPrice,
+          chosenToppings: orderToppings
+        });
+      }
+
+      console.log(orderState);
   return (
     <Grid divided='vertically' stackable>
         <Grid.Row centered>
             <Menu menu={menuState.toppings} />
         </Grid.Row>
-        <Order menu={menuState.toppings}/>
+        <Order 
+          menu={menuState.toppings}
+          toppingAdded={addToppingHandler}
+  />
   </Grid>
   )
 };

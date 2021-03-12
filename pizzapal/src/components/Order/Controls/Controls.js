@@ -9,10 +9,11 @@ const Controls = (props) => {
             Step 1: Choose your toppings
         </Header>
         <Grid>
-            {props.menu.map((toppings, index) => {
+        {props.menu.map((toppings) => {
             return <Control 
                 key={toppings.id}
                 alt={toppings.alt}
+                added={() => props.toppingAdded(toppings.id)}
             />
             })}
         </Grid>
