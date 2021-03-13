@@ -76,6 +76,8 @@ const PizzaPal = (props) => {
           menu={menuState.toppings}
           toppingAdded={addToppingHandler}
           toppingRemoved={removeToppingHandler}
+          chosenToppings={orderState.chosenToppings}
+          totalPrice={orderState.totalPrice}
   />
   </Grid>
   )
