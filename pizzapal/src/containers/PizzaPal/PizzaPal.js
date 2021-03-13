@@ -49,6 +49,23 @@ const PizzaPal = (props) => {
         });
       }
 
+      const removeToppingHandler = (id) => {
+        const index = orderState.chosenToppings.findIndex(topping => topping.id === id);
+
+        let price = orderState.totalPrice; 
+
+        if(index >= 0){
+          price = price - orderState.chosenToppings[index].price;
+          orderToppings.splice(index, 1);
+
+        }
+        setOrderState({
+          totalPrice: price,
+          chosenToppings: orderToppings
+        });
+        console.log(id);
+      }
+
       console.log(orderState);
   return (
     <Grid divided='vertically' stackable>
@@ -58,6 +75,7 @@ const PizzaPal = (props) => {
         <Order 
           menu={menuState.toppings}
           toppingAdded={addToppingHandler}
+          toppingRemoved={removeToppingHandler}
   />
   </Grid>
   )

@@ -7,8 +7,9 @@ const Order = (props) => {
   return (
     <Grid.Row columns={2} centered>
         <Controls 
-          menu={props.menu}
-          toppingAdded = {props.toppingAdded}
+           menu={props.menu}
+           toppingAdded = {props.toppingAdded}
+           toppingRemoved = {props.toppingRemoved}
   />
         <Checkout />
     </Grid.Row>
