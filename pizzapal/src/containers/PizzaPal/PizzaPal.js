@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Menu from '../../components/Menu/Menu';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Message } from 'semantic-ui-react';
 import Order from '../../components/Order/Order';
 import axios from '../../axios-orders';
 const orderToppings = [];
@@ -8,14 +8,18 @@ const orderToppings = [];
 const PizzaPal = (props) => {
 
   const [menuState, setMenuState] = useState({
-    toppings: []
+    toppings: [], 
+    error: false
   });
 
   useEffect(() => {
     axios.get('/toppings.json')
     .then(response => {
-      setMenuState({toppings: response.data});
-      console.log(response);
+      setMenuState({toppings: response.data, error: false});
+    })
+    .catch(error => {
+      setMenuState({toppings: menuState.toppings, error: true});
+      console.log(error);
     });
 }, [])
       const [orderState, setOrderState] = useState({
@@ -63,22 +67,38 @@ const PizzaPal = (props) => {
         .then(response => {
             alert('Order saved!');
             console.log(response);
+        })
+        .catch(error => {
+        setMenuState({toppings: menuState.toppings, error: true});
+        alert('Something went wrong :(');
+        console.log(error);
         });
     }
-  return (
-    <Grid divided='vertically' stackable>
-        <Grid.Row centered>
-            <Menu menu={menuState.toppings} />
-        </Grid.Row>
-        <Order 
-          menu={menuState.toppings}
-          chosenToppings={orderState.chosenToppings}
-          totalPrice={orderState.totalPrice}
-          toppingAdded={addToppingHandler}
-          toppingRemoved={removeToppingHandler}
-          checkout={checkoutHandler}
-  />
-  </Grid>
+
+    let pizzapalMenu = menuState.error ? <Message><p>Pizza Pal menu can't be loaded!</p></Message> : <Message><p>Menu loading...</p></Message>;
+  
+    if (menuState.toppings.length > 0) {
+      pizzapalMenu = (
+          <Grid divided='vertically' stackable>
+          <Grid.Row centered>
+              <Menu menu={menuState.toppings} />
+          </Grid.Row>
+          <Order 
+              menu={menuState.toppings}
+              chosenToppings={orderState.chosenToppings}
+              totalPrice={orderState.totalPrice}
+              toppingAdded={addToppingHandler}
+              toppingRemoved={removeToppingHandler}
+              checkout={checkoutHandler}
+          />
+          </Grid>
+      );
+  }
+
+    return (
+      <div>
+      {pizzapalMenu}
+    </div>
   )
 };
 
