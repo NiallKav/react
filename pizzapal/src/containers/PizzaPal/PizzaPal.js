@@ -62,6 +62,13 @@ const PizzaPal = (props) => {
         console.log(id);
       }
 
+
+      let checkoutDisabled = true;
+
+      if (orderState.chosenToppings.length > 0){
+        checkoutDisabled = false;
+      }
+
       const checkoutHandler = () => {
         axios.post('/orders.json', orderState)
         .then(response => {
@@ -84,13 +91,14 @@ const PizzaPal = (props) => {
               <Menu menu={menuState.toppings} />
           </Grid.Row>
           <Order 
-              menu={menuState.toppings}
-              chosenToppings={orderState.chosenToppings}
-              totalPrice={orderState.totalPrice}
-              toppingAdded={addToppingHandler}
-              toppingRemoved={removeToppingHandler}
-              checkout={checkoutHandler}
-          />
+            menu={menuState.toppings}
+            toppingAdded={addToppingHandler}
+            toppingRemoved={removeToppingHandler}
+            chosenToppings={orderState.chosenToppings}
+            totalPrice={orderState.totalPrice}
+            checkout={checkoutHandler}
+            disabled={checkoutDisabled}
+            />
           </Grid>
       );
   }

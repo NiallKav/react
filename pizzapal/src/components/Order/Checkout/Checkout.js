@@ -16,11 +16,12 @@ const Checkout = (props) => {
           price = {props.price}
         />
       <OrderModal 
-          menu = {props.menu}
-          toppings = {props.toppings}
-          price = {props.price}
-          checkout = {props.checkout}
-  />
+        menu = {props.menu}
+        toppings = {props.toppings}
+        price = {props.price}
+        checkout={props.checkout}
+        disabled={props.disabled}
+    />
     </Grid.Column>
   )
 };
