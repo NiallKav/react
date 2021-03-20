@@ -3,45 +3,26 @@ import { Header, List } from 'semantic-ui-react';
 
 const OrderSummary = (props) => {
 
-    const toppingIdsArray = [];
-    for(let i in props.toppings){
-        toppingIdsArray.push(props.toppings[i].id);
-    }
-
-    const countOccurrences = (array, value) => array.reduce((count, num) => (num === value ? count + 1 : count), 0);
-
-    const toppingsSummary = [];
-
-    for(let id=0; id<16; id++){
-        let toppingCount = countOccurrences(toppingIdsArray, id);
-
-        if(toppingCount > 0){
-            const toppingWithCount = {
-                id: id,
-                name: props.menu[id].alt,
-                count: toppingCount
-            };
-            toppingsSummary.push(toppingWithCount);
-        }
-    }
-
-    let summary=null;
+    let summary = null;
 
     if(props.toppings.length > 0){
+
         summary = (
             <div>
                 <Header as='h3'>
                     Your Pizza: 
                 </Header>
+
                 <List divided verticalAlign='middle'>
-                    {toppingsSummary.map((topping) => {
+                    {props.toppings.map((topping) => {
                         return( 
                             <List.Item key={topping.id}>
-                                {topping.name} : {topping.count}
+                                {topping.name}: {topping.count}
                             </List.Item>
                         )
                     })}
                 </List>
+
                 <Header as='h4' className='h4margin'>
                     Total Price: &euro; {props.price.toFixed(2)}
                 </Header>
@@ -58,11 +39,12 @@ const OrderSummary = (props) => {
         );
     }
 
-  return (
-    <div>
-        {summary}
-    </div>
-  )
+
+    return (
+        <div>
+            {summary}
+        </div>
+    );
 };
 
 export default OrderSummary;
