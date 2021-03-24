@@ -1,5 +1,8 @@
 import React from "react";
 import { Menu } from 'semantic-ui-react';
+import {NavLink} from 'react-router-dom';
+
+
 const Nav = (props) => {
   return (
     <Menu color='red' stackable inverted>
@@ -7,12 +10,12 @@ const Nav = (props) => {
       <img src='images/logo.png' alt='Pizza Pal Logo' />
     </Menu.Item>
 
-    <Menu.Item active>
+    <Menu.Item as={NavLink} to="/" exact>
       Pizza Pal
     </Menu.Item>
 
-    <Menu.Item>
-      Your Orders
+    <Menu.Item as={NavLink} to="/orders">
+     Your Orders
     </Menu.Item>
 
   </Menu>
