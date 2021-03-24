@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from '../../axios-orders';
 import OrdersTable from '../../components/OrdersTable/OrdersTable';
+import { Message } from 'semantic-ui-react';
+
 
 const YourOrders = (props) => {
 
@@ -35,11 +37,25 @@ const YourOrders = (props) => {
 
     console.log(pastOrdersState.orders);
 
-  return (
-    <div>
-      <OrdersTable orders={pastOrdersState.orders} />
-    </div>
-  )
+    let orders = pastOrdersState.error ? <Message><p>Orders can't be loaded!</p></Message> : <Message><p>Orders loading...</p></Message>;
+
+        if (pastOrdersState.ordersLoaded){
+
+          if(pastOrdersState.orders.length > 0){
+            orders = (
+              <OrdersTable orders={pastOrdersState.orders} />
+            );
+          }
+          else{
+            orders = <Message><p>You haven't placed any orders yet :(</p></Message>
+          }
+        }
+
+        return (
+          <div>
+            {orders}
+          </div>
+        )
 };
 
 export default YourOrders;
