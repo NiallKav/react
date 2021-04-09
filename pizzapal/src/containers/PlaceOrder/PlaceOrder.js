@@ -91,7 +91,7 @@ const PlaceOrder = (props) => {
 
          axios.post('/orders.json', order)
          .then(response => {
-             alert('Order saved!');
+            props.history.push('/order-success');
          })
          .catch(error => {
            alert('Something went wrong :(');
