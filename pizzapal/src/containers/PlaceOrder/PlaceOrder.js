@@ -24,6 +24,13 @@ const PlaceOrder = (props) => {
         }
     });
 
+        const [messageState, setMessageState] = useState({
+            name: null,
+            phone: null,
+            method: null,
+            address: null
+        });
+
     const [validationState, setValidationState] = useState({
         rules: [
             {
@@ -75,7 +82,26 @@ const PlaceOrder = (props) => {
             validation.rules[inputRule].valid = true;        
         }
 
-        console.log(message);
+        let msgState = {...messageState};
+
+        switch(inputIdentifier) {
+            case "form-input-name":
+                msgState.name = message;
+                break;
+            case "form-input-phone":
+                msgState.phone = message;
+                break;
+            case "form-input-method":
+                msgState.method = message;
+                break;
+            case "form-input-address":
+                msgState.address = message;
+                break;
+            default:
+              msgState = {...messageState};
+          }
+
+          setMessageState({...msgState});
 
         // update state
         setValidationState({rules: validation.rules, formValid: validation.formValid});
@@ -187,7 +213,7 @@ const PlaceOrder = (props) => {
                         </Header>
                 <Form>
                         <Form.Input
-                            error='Please enter your name'
+                            error={messageState.name}
                             required
                             label='Name'
                             placeholder='Name'
@@ -195,7 +221,7 @@ const PlaceOrder = (props) => {
                             onChange={(event) => formChangedHandler(event, 'form-input-name', 'input')}
                         />
                         <Form.Input
-                            error='Please enter your phone number'
+                           error={messageState.phone}
                             required
                             label='Phone'
                             placeholder='Phone'
@@ -205,7 +231,7 @@ const PlaceOrder = (props) => {
                         <Form.Field
                             control={Select}
                             required
-                            error='Please choose collection or delivery'
+                            error={messageState.method}
                             label='Delivery method'
                             options={[
                                 { key: 'c', text: 'Collection', value: 'collection' },
@@ -216,7 +242,7 @@ const PlaceOrder = (props) => {
                             onChange={(event) => formChangedHandler(event, 'form-input-method', 'select')}
                         />
                         <Form.Input
-                            error='Please enter your delivery address'
+                             error={messageState.address}
                             fluid
                             label='Address'
                             placeholder='Address'
