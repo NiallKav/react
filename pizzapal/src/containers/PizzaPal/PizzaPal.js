@@ -99,7 +99,13 @@ const PizzaPal = (props) => {
 
       const checkoutHandler = () => {
 
-        props.history.push('/place-order');
+        props.history.push({
+          pathname: 'place-order', 
+          state: {
+            order: orderState, 
+            menu: menuState.toppings
+          }
+        });
 
         // let order = orderState;
         // order.id = uuidv4();

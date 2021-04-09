@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, Segment, Header, Button } from 'semantic-ui-react';
+import OrderSummary from "../../components/Order/Checkout/OrderSummary/OrderSummary";
+import { withRouter } from 'react-router-dom';
 
-const name = (props) => {
+
+
+const PlaceOrder = (props) => {
+
+    const [orderState, setOrderState] = useState({
+        totalPrice: props.location.state.order.totalPrice, 
+        chosenToppings: props.location.state.order.chosenToppings
+      });  
+
   return (
     <Grid>
         <Grid.Row columns={2}>
@@ -11,7 +21,12 @@ const name = (props) => {
                     <Header as='h2' textAlign='center' color='red'>
                         Confirm your order:
                     </Header>
-                    Order summary goes here
+                    <OrderSummary 
+                        menu = {props.location.state.menu}
+                        toppings = {orderState.chosenToppings}
+                        price = {orderState.totalPrice}
+                    />
+
                     <Button color="red">Go Back</Button>
                 </Segment>
             </Grid.Column>
@@ -30,4 +45,4 @@ const name = (props) => {
   )
 };
 
-export default name;
+export default withRouter(PlaceOrder);
