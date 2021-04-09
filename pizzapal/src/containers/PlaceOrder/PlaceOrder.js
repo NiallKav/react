@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, Segment, Header, Button } from 'semantic-ui-react';
+import { Grid, Segment, Header, Button, Form, Select } from 'semantic-ui-react';
 import OrderSummary from "../../components/Order/Checkout/OrderSummary/OrderSummary";
 import { withRouter } from 'react-router-dom';
 
@@ -46,7 +46,42 @@ const PlaceOrder = (props) => {
                         <Header as='h2' textAlign='center' color='red'>
                             Enter your details:
                         </Header>
-                        Form goes here
+                        <Form>
+      <Form.Input
+          error='Please enter your name'
+          required
+          label='Name'
+          placeholder='Name'
+          id='form-input-name'
+      />
+      <Form.Input
+          error='Please enter your phone number'
+          required
+          label='Phone'
+          placeholder='Phone'
+          id='form-input-phone'
+      />
+      <Form.Field
+          control={Select}
+          required
+          error='Please choose collection or delivery'
+          label='Delivery method'
+          options={[
+              { key: 'c', text: 'Collection', value: 'collection' },
+              { key: 'd', text: 'Delivery', value: 'delivery' }
+          ]}
+          placeholder='Collection or Delivery'
+          id='form-input-method'
+      />
+      <Form.Input
+          error='Please enter your delivery address'
+          fluid
+          label='Address'
+          placeholder='Address'
+          id='form-input-address'
+      />
+      <Button type='submit' color='green'>Submit</Button>
+  </Form>
                     </Segment>
             </Grid.Column>
 
