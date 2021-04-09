@@ -12,6 +12,15 @@ const PlaceOrder = (props) => {
         chosenToppings: props.location.state.order.chosenToppings
       });  
 
+      const cancelHandler = () => {
+        props.history.push({
+            pathname: '/', 
+            state: {
+              order: orderState, 
+            }
+          });
+    };
+
   return (
     <Grid>
         <Grid.Row columns={2}>
@@ -27,7 +36,8 @@ const PlaceOrder = (props) => {
                         price = {orderState.totalPrice}
                     />
 
-                    <Button color="red">Go Back</Button>
+                        <Button color="red" onClick={cancelHandler}>Go Back</Button>
+
                 </Segment>
             </Grid.Column>
 

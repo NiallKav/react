@@ -26,10 +26,20 @@ const PizzaPal = (props) => {
         }, [])
 
 
-    const [orderState, setOrderState] = useState({
-        totalPrice: 5, 
-        chosenToppings: []
-      });
+        const [orderState, setOrderState] = useState({
+          totalPrice: 
+            props.location.state ? 
+            props.location.state.order.totalPrice : 5, 
+          chosenToppings: 
+            props.location.state ? 
+            props.location.state.order.chosenToppings: orderToppings
+        });  
+
+        if (props.location.state) {
+          orderToppings = props.location.state.order.chosenToppings;
+        }
+
+        window.history.replaceState('/', undefined);
 
       const addToppingHandler = (id) => {
         // find the chosen topping in the menu
