@@ -1,11 +1,10 @@
-import React from "react";
+import 'semantic-ui-css/semantic.min.css';
+import Layout from './components/Layout/Layout';
 
-const name = (props) => {
+function App() {
   return (
-    <div>
-      
-    </div>
-  )
-};
+    <Layout />
+  );
+}
 
-export default name;
+export default App;
