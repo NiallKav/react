@@ -103,9 +103,22 @@ const PlaceOrder = (props) => {
 
           setMessageState({...msgState});
 
-        // update state
-        setValidationState({rules: validation.rules, formValid: validation.formValid});
-    };
+                // check if the whole form is valid
+            let formIsValid = true;
+
+            // check if any of the fields are NOT valid
+            for (let i in validation.rules){
+                if(!validation.rules[i].valid){
+                    // and if so, set formIsValid to false
+                    formIsValid = false;
+                }
+            }
+
+            console.log(formIsValid);
+
+            // update state 
+            setValidationState({rules: validation.rules, formValid: formIsValid});
+            };
 
     const formChangedHandler = (event, inputIdentifier, inputType) => {
 
