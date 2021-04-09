@@ -24,6 +24,63 @@ const PlaceOrder = (props) => {
         }
     });
 
+    const [validationState, setValidationState] = useState({
+        rules: [
+            {
+                id: 'form-input-name',
+                message: 'Please enter your name',
+                required: true,
+                valid: false
+            },
+            {
+                id: 'form-input-phone',
+                message: 'Please enter your phone number',
+                required: true,
+                valid: false
+            },
+            {
+                id: 'form-input-method',
+                message: 'Please choose collection or delivery',
+                required: true,
+                valid: false
+            },
+            {
+                id: 'form-input-address',
+                message: 'Please enter your delivery address',
+                required: false,
+                valid: true
+            }
+        ],
+        formValid: false
+    });
+
+    const validate = (value, inputIdentifier, inputType) => {
+        // copy the validation state
+        const validation = {...validationState};
+
+        // find the rule for this input
+        const inputRule = validation.rules.findIndex(input => input.id === inputIdentifier);
+
+        let message = null;
+
+        // check if it is required and also empty (for inputs only)
+        if (validation.rules[inputRule].required && inputType === 'input' && value.trim() === '') {
+            // get the error message and set valid to false
+            message = validation.rules[inputRule].message;
+            validation.rules[inputRule].valid = false;
+        }
+        else {
+            // otherwise reset the message and set valid back to true
+            message = null;
+            validation.rules[inputRule].valid = true;        
+        }
+
+        console.log(message);
+
+        // update state
+        setValidationState({rules: validation.rules, formValid: validation.formValid});
+    };
+
     const formChangedHandler = (event, inputIdentifier, inputType) => {
 
         let customerDetails = customerState.details;
@@ -31,18 +88,22 @@ const PlaceOrder = (props) => {
         switch(inputIdentifier) {
             case "form-input-name":
                 customerDetails.name = event.target.value;
+                validate(event.target.value, inputIdentifier, inputType);
                 break;
             case "form-input-phone":
                 customerDetails.phone = event.target.value;
+                validate(event.target.value, inputIdentifier, inputType);
                 break;
             case "form-input-method":
                 customerDetails.method = event.target.textContent;
+                validate(event.target.textContent, inputIdentifier, inputType);
                 break;
             case "form-input-address":
                 customerDetails.address = event.target.value;
+                validate(event.target.value, inputIdentifier, inputType);
                 break;
             default:
-              customerDetails = customerState.details;
+              // code block
           }
 
         setCustomerState({details: customerDetails});
