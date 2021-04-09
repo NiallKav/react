@@ -1,10 +1,11 @@
-import 'semantic-ui-css/semantic.min.css';
-function App() {
-  return (
-    <div >
-      Smart Home Devices
-    </div>
-  );
-}
+import React from "react";
 
-export default App;
+const name = (props) => {
+  return (
+    <div>
+      
+    </div>
+  )
+};
+
+export default name;
