@@ -11,7 +11,12 @@ import Checkout from './Checkout/Checkout';
                 devicesAdded = {props.devicesAdded}
                 devicesRemoved = {props.devicesRemoved}
                 />
-                <Checkout />
+                <Checkout
+                    menu = {props.menu}
+                    devices={props.chosenDevices}
+                    price={props.totalPrice}
+                
+                />
             </Grid.Row>
         )
         };

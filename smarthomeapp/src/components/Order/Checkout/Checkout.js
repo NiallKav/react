@@ -9,8 +9,18 @@ import OrderModal from './OrderModal/OrderModal';
             <Header as='h2' textAlign='center' className='step'>
                 Step 2: Check out 
             </Header>
-            <OrderSummary />
-            <OrderModal />
+            <OrderSummary
+                menu = {props.menu}
+                devices = {props.devices}
+                price = {props.price}
+            
+            />
+            <OrderModal 
+                menu = {props.menu}
+                devices = {props.devices}
+                price = {props.price}
+            
+            />
         </Grid.Column>
         )
         };

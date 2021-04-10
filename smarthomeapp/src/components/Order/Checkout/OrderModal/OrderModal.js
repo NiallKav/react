@@ -16,7 +16,13 @@ import OrderSummary from '../OrderSummary/OrderSummary';
                     <Modal.Header>Confirm your choices:</Modal.Header>
                     <Modal.Content>
         
-                      <OrderSummary />
+                      <OrderSummary
+                        menu = {props.menu}
+                        devices = {props.devices}
+                        price = {props.price}
+                      
+                      
+                      />
         
                     </Modal.Content>
                     <Modal.Actions>
