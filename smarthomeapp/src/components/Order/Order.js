@@ -9,6 +9,7 @@ import Checkout from './Checkout/Checkout';
                 <Controls 
                 menu={props.menu}
                 devicesAdded = {props.devicesAdded}
+                devicesRemoved = {props.devicesRemoved}
                 />
                 <Checkout />
             </Grid.Row>

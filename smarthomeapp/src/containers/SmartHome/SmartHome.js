@@ -44,12 +44,20 @@ const SmartHome = (props) => {
             orderDevices.push(chosenDevices);
 
             const newPrice = orderState.totalPrice + menuState.devices[index].price;
+
+
+
+
             setOrderState({
                 totalPrice: newPrice,
                 chosenDevices: orderDevices
               });
             }
             
+
+            const removeDevicesHandler = (id) => {
+                console.log(id);
+              }
 
       return (
         <Grid divided='vertically' stackable>
@@ -60,6 +68,7 @@ const SmartHome = (props) => {
             <Order 
             menu={menuState.devices}
             devicesAdded={addDevicesHandler}
+            devicesRemoved={removeDevicesHandler}
             />
     
       </Grid>
