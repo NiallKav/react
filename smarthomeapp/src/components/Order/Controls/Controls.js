@@ -14,6 +14,7 @@ const Controls = (props) => {
                 key={devices.id}
                 alt={devices.alt}
                 added={() => props.devicesAdded(devices.id)}
+                removed={() => props.devicesRemoved(devices.id)}
             />
             })}
         </Grid>

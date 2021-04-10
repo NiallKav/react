@@ -9,7 +9,7 @@ const Control = (props) => {
                         <Button color='green' icon onClick={props.added}>
                             <Icon name='plus' />
                         </Button>
-                        <Button color='red' icon>
+                        <Button color='red' icon onClick={props.removed}>
                             <Icon name='minus' />
                         </Button>
                     </Button.Group>

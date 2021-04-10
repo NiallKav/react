@@ -56,9 +56,23 @@ const SmartHome = (props) => {
             
 
             const removeDevicesHandler = (id) => {
-                console.log(id);
-              }
+                const index = orderState.chosenDevices.findIndex(devices => devices.id === id);
 
+                let price = orderState.totalPrice; 
+
+                if(index >= 0){
+
+                    price = price - orderState.chosenDevices[index].price;
+                    orderDevices.splice(index, 1);
+
+                }
+
+                setOrderState({
+                    totalPrice: price,
+                    chosenDevices: orderDevices
+                });
+            }
+            
       return (
         <Grid divided='vertically' stackable>
             <Grid.Row centered>
