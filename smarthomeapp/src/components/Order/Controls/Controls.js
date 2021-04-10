@@ -13,6 +13,7 @@ const Controls = (props) => {
             return <Control 
                 key={devices.id}
                 alt={devices.alt}
+                added={() => props.devicesAdded(devices.id)}
             />
             })}
         </Grid>

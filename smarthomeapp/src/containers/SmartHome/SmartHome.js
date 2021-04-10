@@ -3,6 +3,7 @@ import Menu from '../../components/Menu/Menu';
 import { Grid } from 'semantic-ui-react';
 import Order from '../../components/Order/Order';
 
+const orderDevices = [];
 
 const SmartHome = (props) => {
 
@@ -27,13 +28,39 @@ const SmartHome = (props) => {
         ]
       });
 
+      const [orderState, setOrderState] = useState({
+        totalPrice: 5, 
+        chosenDevices: []
+      });
+
+      const addDevicesHandler = (id) => {
+        const index = menuState.devices.findIndex(devices => devices.id === id);
+
+        const chosenDevices = {
+            id: menuState.devices[index].id,
+            name: menuState.devices[index].alt,
+            price: menuState.devices[index].price
+      }
+            orderDevices.push(chosenDevices);
+
+            const newPrice = orderState.totalPrice + menuState.devices[index].price;
+            setOrderState({
+                totalPrice: newPrice,
+                chosenDevices: orderDevices
+              });
+            }
+            
+
       return (
         <Grid divided='vertically' stackable>
             <Grid.Row centered>
                 <Menu menu={menuState.devices} />
             </Grid.Row>
-    
-            <Order menu={menuState.devices}/>
+            
+            <Order 
+            menu={menuState.devices}
+            devicesAdded={addDevicesHandler}
+            />
     
       </Grid>
       )
