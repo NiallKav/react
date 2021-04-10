@@ -5,6 +5,8 @@ import Order from '../../components/Order/Order';
 import axios from '../../axios-orders';
 import { v4 as uuidv4 } from 'uuid';
 
+
+
 let orderToppings = [];
 
 const PizzaPal = (props) => {
@@ -14,20 +16,32 @@ const PizzaPal = (props) => {
     error: false
   });
 
-  useEffect(() => {
-    axios.get('/toppings.json')
-    .then(response => {
-      setMenuState({toppings: response.data, error: false});
-    })
-    .catch(error => {
-      setMenuState({toppings: menuState.toppings, error: true});
-      console.log(error);
-    });
-}, [])
-      const [orderState, setOrderState] = useState({
-        totalPrice: 5, 
-        chosenToppings: []
-      });
+      useEffect(() => {
+            axios.get('/toppings.json')
+            .then(response => {
+              setMenuState({toppings: response.data, error: false});
+            })
+            .catch(error => {
+              setMenuState({toppings: menuState.toppings, error: true});
+              console.log(error);
+            });
+        }, [])
+
+
+        const [orderState, setOrderState] = useState({
+          totalPrice: 
+            props.location.state ? 
+            props.location.state.order.totalPrice : 5, 
+          chosenToppings: 
+            props.location.state ? 
+            props.location.state.order.chosenToppings: orderToppings
+        });  
+
+        if (props.location.state) {
+          orderToppings = props.location.state.order.chosenToppings;
+        }
+
+        window.history.replaceState('/', undefined);
 
       const addToppingHandler = (id) => {
         // find the chosen topping in the menu
@@ -97,46 +111,15 @@ const PizzaPal = (props) => {
 
       const checkoutHandler = () => {
 
-        let order = orderState;
-        order.id = uuidv4();
-
-        let orderDate = new Date();
-
-        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
-        let dayNum = orderDate.getDay();
-        let day = days[dayNum];
-
-        let monthNum = orderDate.getMonth();
-        let month = months[monthNum];
-
-        let date = orderDate.getDate();
-        let year = orderDate.getFullYear();
-
-        // saves date in the format "Fri 19 Mar 2021"
-        let formattedDate = day + " " + date + " " + month + " " + year;
-
-        // add formattedDate to order
-        order.date = formattedDate;
-
-
-
-        axios.post('/orders.json', order)
-        .then(response => {
-            alert('Order saved!');
-            // set order state and orderToppings back to starting values
-            setOrderState({
-              totalPrice: 5,
-              chosenToppings: []
-            });
-            orderToppings=[];
-        })
-        .catch(error => {
-        setMenuState({toppings: menuState.toppings, error: true});
-        alert('Something went wrong :(');
-        console.log(error);
+        props.history.push({
+          pathname: 'place-order', 
+          state: {
+            order: orderState, 
+            menu: menuState.toppings
+          }
         });
+
+        
     }
 
     let pizzapalMenu = menuState.error ? <Message><p>Pizza Pal menu can't be loaded!</p></Message> : <Message><p>Menu loading...</p></Message>;
@@ -159,6 +142,9 @@ const PizzaPal = (props) => {
           </Grid>
       );
   }
+
+
+
 
     return (
       <div>
