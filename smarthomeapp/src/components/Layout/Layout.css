@@ -1,3 +1,16 @@
 .ui.container {
   margin: 2em;
 }
+
+.ui.red.segment {
+  margin-top: 1em;
+}
+
+p {
+  font-size: 85%;
+  white-space: nowrap;
+  font-weight: bold;
+}
+.ui.center.aligned.header.step {
+  margin-bottom: 1em;
+}

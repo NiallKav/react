@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
+import Menu from '../../components/Menu/Menu';
 import { Grid } from 'semantic-ui-react';
+import Order from '../../components/Order/Order';
+
 
 const SmartHome = (props) => {
 
     const [menuState, setMenuState] = useState({
-        toppings: [
+        devices: [
           { id: 0, name: 'lightbulb_one', price: .75, image: 'images/devices/light_bulb_one.jpg', alt: 'Light Bulb ' },
           { id: 1, name: 'lightbulb_two', price: .75, image: 'images/devices/light_bulb_two.jpg', alt: 'Light Bulb' },
           { id: 2, name: 'lightbulb_three', price: .5, image: 'images/devices/light_bulb_three.jpg', alt: 'Light Bulb' },
@@ -24,16 +27,17 @@ const SmartHome = (props) => {
         ]
       });
 
-  return (
-    <Grid divided='vertically' stackable>
-        <Grid.Row centered>
-            Menu
-        </Grid.Row>
-        <Grid.Row>
-            Order
-        </Grid.Row>
-  </Grid>
-  )
-};
+      return (
+        <Grid divided='vertically' stackable>
+            <Grid.Row centered>
+                <Menu menu={menuState.devices} />
+            </Grid.Row>
+    
+            <Order menu={menuState.devices}/>
+    
+      </Grid>
+      )
+    };
+    
 
 export default SmartHome;
