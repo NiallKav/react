@@ -18,12 +18,12 @@ const SmartHome = (props) => {
           { id: 7, name: 'motion_sensor', price: .5, image: 'images/devices/motion_sensor.jpg', alt: 'Motion Sensor' },
           { id: 8, name: 'security_camera', price: .5, image: 'images/devices/security_camera.jpg', alt: 'Security Camera ' },
           { id: 9, name: 'smart_timer', price: .5, image: 'images/devices/smart_timer.jpg', alt: 'Smart Timer' },
-          { id: 10, name: 'smart_switch_controller', price: .5, image: 'images/devices/smart_switch_controller.jpg', alt: 'Smart Switch Controller' },
+          { id: 10, name: 'smart_switch_controller', price: .5, image: 'images/devices/smart_switch_controller.jpg', alt: 'Smart Switch ' },
           { id: 11, name: 'spot_light', price: 1, image: 'images/devices/spot_light.jpg', alt: 'Spot Light' },
           { id: 12, name: 'tape_light', price: 1, image: 'images/devices/tape_light.jpg', alt: 'Tape Light' },
           { id: 13, name: 'down_light', price: 1, image: 'images/devices/down_light.jpg', alt: 'Down Light' },
-          { id: 14, name: 'carbon_monoxide_alarm', price: .75, image: 'images/devices/carbon_monoxide_alarm.jpg', alt: 'Carbon Monoxide Alarm' },
-          { id: 15, name: 'google_home_hub', price: .75, image: 'images/devices/google_home_hub.jpg', alt: 'Google Home Hub' },
+          { id: 14, name: 'carbon_monoxide_alarm', price: .75, image: 'images/devices/carbon_monoxide_alarm.jpg', alt: 'C02 Alarm' },
+          { id: 15, name: 'google_home_hub', price: .75, image: 'images/devices/google_home_hub.jpg', alt: ' Home Hub' },
         ]
       });
 
