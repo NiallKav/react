@@ -1,19 +1,13 @@
 import React from "react";
-import './Layout.css';
 import { Container } from 'semantic-ui-react';
-import Nav from '../Nav/Nav';
+import './Layout.css';
 
+const Layout = (props) => {
+  return (
+    <div>
+Smart Home Devices
+    </div>
+  )
+};
 
-
-            const Layout = (props) => {
-            return (
-                <Container>
-                <Nav />
-                <main>
-                    {props.children}
-                </main>
-                </Container>
-            )
-            };
-
-export default Layout;  
+export default Layout;
