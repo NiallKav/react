@@ -48,45 +48,65 @@ const SmartHome = (props) => {
         chosenDevices: []
       });
 
+
+
       const addDevicesHandler = (id) => {
-        const index = menuState.devices.findIndex(devices => devices.id === id);
-
-        const chosenDevices = {
-            id: menuState.devices[index].id,
-            name: menuState.devices[index].alt,
-            price: menuState.devices[index].price
+        const menuIndex = menuState.devices.findIndex(devices => devices.id === id);
+  
+      
+      const orderIndex = orderDevices.findIndex(devices => devices.id === id);
+  
+      
+      if (orderIndex > -1){
+        orderDevices[orderIndex].count++;
       }
-            orderDevices.push(chosenDevices);
-
-            const newPrice = orderState.totalPrice + menuState.devices[index].price;
-
-
-
-
-            setOrderState({
-                totalPrice: newPrice,
-                chosenDevices: orderDevices
-              });
-            }
+      
+      else{
+        
+        const chosenDevices = {
+          id: menuState.devices[menuIndex].id,
+          name: menuState.devices[menuIndex].alt,
+          price: menuState.devices[menuIndex].price,
+          count: 1
+        };
+        orderDevices.push(chosenDevices);
+      }
+  
+     
+      const newPrice = orderState.totalPrice + menuState.devices[menuIndex].price;
+  
+      
+      setOrderState({
+        totalPrice: newPrice,
+        chosenDevices: orderDevices
+      });
+    }
             
 
-            const removeDevicesHandler = (id) => {
-                const index = orderState.chosenDevices.findIndex(devices => devices.id === id);
-
-                let price = orderState.totalPrice; 
-
-                if(index >= 0){
-
-                    price = price - orderState.chosenDevices[index].price;
-                    orderDevices.splice(index, 1);
-
-                }
-
-                setOrderState({
-                    totalPrice: price,
-                    chosenDevices: orderDevices
-                });
-            }
+    const removeDevicesHandler = (id) => {
+       
+        const index = orderDevices.findIndex(devices => devices.id === id);
+    
+        
+        let price = orderState.totalPrice; 
+    
+        
+        if(index >= 0){
+          price = price - orderDevices[index].price;
+          orderDevices[index].count--;
+    
+          
+          if(orderDevices[index].count < 1){
+            orderDevices.splice(index, 1);
+          }
+        }
+    
+        
+        setOrderState({
+          totalPrice: price,
+          chosenDevices: orderDevices
+        });
+      }      
             
             let checkoutDisabled = true;
 
@@ -122,7 +142,6 @@ const SmartHome = (props) => {
             devicesRemoved={removeDevicesHandler}
             chosenDevices={orderState.chosenDevices}
             totalPrice={orderState.totalPrice}
-            checkout={checkoutHandler}
             checkout={checkoutHandler}
             disabled={checkoutDisabled}
             

@@ -1,35 +1,11 @@
 import React from "react";
 import { Header, List } from 'semantic-ui-react';
+import { v4 as uuidv4 } from 'uuid';
+
 
         const OrderSummary = (props) => {
 
-          const devicesIdsArray = [];
-          for(let i in props.devices){
-              devicesIdsArray.push(props.devices[i].id);
-          };
-
-          const countOccurrences = (array, value) => array.reduce((count, num) => (num === value ? count + 1 : count), 0);
-
-          const devicesSummary = [];
-
-          for(let id=0; id<16; id++){
-
           
-            let devicesCount = countOccurrences(devicesIdsArray, id);
-
-            if (devicesCount > 0) {
-
-              const devicesWithCount = {
-                id: id,
-                name: props.menu[id].alt,
-                count: devicesCount
-            };
-
-            devicesSummary.push(devicesWithCount);
-
-            }
-      
-        }
           
         let summary = null;
 
@@ -43,7 +19,7 @@ import { Header, List } from 'semantic-ui-react';
             </Header>
             
             <List divided verticalAlign='middle'>
-                    {devicesSummary.map((devices) => {
+                    {props.devices.map((devices) => {
                         return( 
                             <List.Item key={devices.id}>
                                 {devices.name}: {devices.count}

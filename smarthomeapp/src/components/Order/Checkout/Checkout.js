@@ -7,7 +7,7 @@ import OrderModal from './OrderModal/OrderModal';
         return (
             <Grid.Column width={6} textAlign='right'>
             <Header as='h2' textAlign='center' className='step'>
-                Step 2: Check out 
+                Step 2: Check Out 
             </Header>
             <OrderSummary
                 menu = {props.menu}
