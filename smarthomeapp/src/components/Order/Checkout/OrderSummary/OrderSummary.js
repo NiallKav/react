@@ -1,6 +1,5 @@
 import React from "react";
 import { Header, List } from 'semantic-ui-react';
-import { v4 as uuidv4 } from 'uuid';
 
 
         const OrderSummary = (props) => {
