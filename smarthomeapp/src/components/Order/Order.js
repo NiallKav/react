@@ -15,6 +15,9 @@ import Checkout from './Checkout/Checkout';
                     menu = {props.menu}
                     devices={props.chosenDevices}
                     price={props.totalPrice}
+                    checkout={props.checkout}
+                    checkout={props.checkout}
+                    disabled={props.disabled}
                 
                 />
             </Grid.Row>

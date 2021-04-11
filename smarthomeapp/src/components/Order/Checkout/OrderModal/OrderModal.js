@@ -29,7 +29,7 @@ import OrderSummary from '../OrderSummary/OrderSummary';
                       <Button color='red' onClick={() => setOpen(false)}>
                           Go Back
                       </Button>
-                      <Button color='green' onClick={() => setOpen(false)}>
+                      <Button color='green' disabled={props.disabled} onClick={ () => { props.checkout(); setOpen(false); } }>
                           Check out
                       </Button>
                     </Modal.Actions>

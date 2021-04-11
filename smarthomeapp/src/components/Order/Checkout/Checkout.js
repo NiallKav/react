@@ -19,6 +19,8 @@ import OrderModal from './OrderModal/OrderModal';
                 menu = {props.menu}
                 devices = {props.devices}
                 price = {props.price}
+                checkout = {props.checkout}
+                disabled={props.disabled}
             
             />
         </Grid.Column>

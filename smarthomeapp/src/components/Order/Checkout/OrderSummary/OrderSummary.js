@@ -31,8 +31,13 @@ import { Header, List } from 'semantic-ui-react';
       
         }
           
-          return (
-            <div>
+        let summary = null;
+
+        if(props.devices.length > 0){
+    
+            summary = (
+    
+              <div>
               <Header as='h3'>
                 Your Basket: 
             </Header>
@@ -51,6 +56,26 @@ import { Header, List } from 'semantic-ui-react';
               Total Price: &euro; {props.price.toFixed(2)}
           </Header>
             </div>
+            );
+        }
+
+        else{
+          summary = (
+              <div>
+                  <Header as='h4' className="h4margin">
+                      Start Adding Your Devices! 
+                  </Header>
+              </div>
+          );
+      }
+
+
+          return (
+
+            <div>
+            {summary}
+        </div>
+            
           )
         };
 

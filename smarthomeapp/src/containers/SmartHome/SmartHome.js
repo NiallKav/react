@@ -1,26 +1,29 @@
 import React, { useState, useEffect } from "react";
 import Menu from '../../components/Menu/Menu';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Message } from 'semantic-ui-react';
 import Order from '../../components/Order/Order';
 import axios from '../../axios-orders';
 
-const orderDevices = [];
+let orderDevices = [];
 
 const SmartHome = (props) => {
 
     const [menuState, setMenuState] = useState({
-        
-        devices: []
+        devices: [],
+        error: false
 
     });
 
-        useEffect(() => {
-            axios.get('/devices.json')
-            .then(response => {
-            setMenuState({devices: response.data});
-            console.log(response);
-            });
-        }, [])
+    useEffect(() => {
+        axios.get('/devices.json')
+        .then(response => {
+          setMenuState({devices: response.data, error: false});
+        })
+        .catch(error => {
+          setMenuState({devices: menuState.devices, error: true});
+          console.log(error);
+        });
+    }, [])
         
         //   { id: 0, name: 'lightbulb_one', price: 5, image: 'images/devices/light_bulb_one.jpg', alt: ' Bulb Multi ' },
         //   { id: 1, name: 'lightbulb_two', price: 5, image: 'images/devices/light_bulb_two.jpg', alt: 'Bulb Blue' },
@@ -85,23 +88,57 @@ const SmartHome = (props) => {
                 });
             }
             
-      return (
-        <Grid divided='vertically' stackable>
-            <Grid.Row centered>
-                <Menu menu={menuState.devices} />
-            </Grid.Row>
+            let checkoutDisabled = true;
+
+            if (orderState.chosenDevices.length > 0){
+              checkoutDisabled = false;
+            }
+
+
+            const checkoutHandler = () => {
+                axios.post('/orders.json', orderState)
+                .then(response => {
+                    alert('Order saved!');
+                    console.log(response);
+                })
+                .catch(error => {
+                    setMenuState({devices: menuState.devices, error: true});
+                    alert('Something went wrong :(');
+                    console.log(error);
+                    });
+            }
+
+            let smarthomeMenu = menuState.error ? <Message><p>Pizza Pal menu can't be loaded!</p></Message> : <Message><p>Menu loading...</p></Message>;
+  
+    if (menuState.devices.length > 0) {
+      smarthomeMenu = (
+          <Grid divided='vertically' stackable>
+          <Grid.Row centered>
+              <Menu menu={menuState.devices} />
+          </Grid.Row>
+          <Order 
+            menu={menuState.devices}
+            devicesAdded={addDevicesHandler}
+            devicesRemoved={removeDevicesHandler}
+            chosenDevices={orderState.chosenDevices}
+            totalPrice={orderState.totalPrice}
+            checkout={checkoutHandler}
+            checkout={checkoutHandler}
+            disabled={checkoutDisabled}
             
-            <Order 
-                menu={menuState.devices}
-                devicesAdded={addDevicesHandler}
-                devicesRemoved={removeDevicesHandler}
-                chosenDevices={orderState.chosenDevices}
-                totalPrice={orderState.totalPrice}
             />
-    
-      </Grid>
-      )
-    };
-    
+          </Grid>
+      );
+  }
+
+
+
+
+    return (
+      <div>
+      {smarthomeMenu}
+    </div>
+  )
+};
 
 export default SmartHome;
