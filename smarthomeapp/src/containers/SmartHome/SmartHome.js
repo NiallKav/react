@@ -44,11 +44,20 @@ const SmartHome = (props) => {
         //   { id: 15, name: 'google_home_hub', price: 35, image: 'images/devices/google_home_hub.jpg', alt: ' Home Hub' },
         // ]
       
-      const [orderState, setOrderState] = useState({
-        totalPrice: 0, 
-        chosenDevices: []
-      });
+        const [orderState, setOrderState] = useState({
+            totalPrice: 
+              props.location.state ? 
+              props.location.state.order.totalPrice : 5, 
+            chosenDevices: 
+              props.location.state ? 
+              props.location.state.order.chosenDevices: orderDevices
+          }); 
+          
+          if (props.location.state) {
+            orderDevices = props.location.state.order.chosenDevices;
+          }
 
+          window.history.replaceState('/', undefined);
 
 
       const addDevicesHandler = (id) => {
@@ -118,51 +127,59 @@ const SmartHome = (props) => {
 
             const checkoutHandler = () => {
 
-                // get order from orderState
-                let order = orderState;
-          
-                // add unique id
-                order.id = uuidv4();
-          
-                // create formatted date
-                let orderDate = new Date();
-          
-                const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-                const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-          
-                let dayNum = orderDate.getDay();
-                let day = days[dayNum];
-          
-                let monthNum = orderDate.getMonth();
-                let month = months[monthNum];
-          
-                let date = orderDate.getDate();
-                let year = orderDate.getFullYear();
-          
-                // saves date in the format "Fri 19 Mar 2021"
-                let formattedDate = day + " " + date + " " + month + " " + year;
-          
-                // add formattedDate to order
-                order.date = formattedDate;
-          
-                axios.post('/orders.json', order)
-                .then(response => {
-                    alert('Order saved!');
-                    // set order state and orderToppings back to starting values
-                    setOrderState({
-                      totalPrice: 5,
-                      chosenDevices: []
-                    });
-                    orderDevices=[];
-                })
-                .catch(error => {
-                  setMenuState({devices: menuState.devices, error: true});
-                  alert('Something went wrong :(');
-                  console.log(error);
+                props.history.push({
+                    pathname: 'place-order', 
+                    state: {
+                    order: orderState, 
+                    menu: menuState.devices
+                    }
                   });
+
+                // // get order from orderState
+                // let order = orderState;
+          
+                // // add unique id
+                // order.id = uuidv4();
+          
+                // // create formatted date
+                // let orderDate = new Date();
+          
+                // const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                // const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+          
+                // let dayNum = orderDate.getDay();
+                // let day = days[dayNum];
+          
+                // let monthNum = orderDate.getMonth();
+                // let month = months[monthNum];
+          
+                // let date = orderDate.getDate();
+                // let year = orderDate.getFullYear();
+          
+                // // saves date in the format "Fri 19 Mar 2021"
+                // let formattedDate = day + " " + date + " " + month + " " + year;
+          
+                // // add formattedDate to order
+                // order.date = formattedDate;
+          
+                // axios.post('/orders.json', order)
+                // .then(response => {
+                //     alert('Order saved!');
+                //     // set order state and orderToppings back to starting values
+                //     setOrderState({
+                //       totalPrice: 5,
+                //       chosenDevices: []
+                //     });
+                //     orderDevices=[];
+                // })
+                // .catch(error => {
+                //   setMenuState({devices: menuState.devices, error: true});
+                //   alert('Something went wrong :(');
+                //   console.log(error);
+                //   });
             }
 
-            let smarthomeMenu = menuState.error ? <Message><p>Pizza Pal menu can't be loaded!</p></Message> : <Message><p>Menu loading...</p></Message>;
+            let smarthomeMenu = menuState.error ? <Message><p>Smart Home Devices menu can't be loaded!</p></Message> : <Message><p>Menu loading...</p></Message>;
   
     if (menuState.devices.length > 0) {
       smarthomeMenu = (

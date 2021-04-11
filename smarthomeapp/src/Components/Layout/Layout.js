@@ -5,6 +5,7 @@ import Nav from '../Nav/Nav';
 import {Route} from 'react-router-dom';
 import SmartHome from '../../containers/SmartHome/SmartHome';
 import YourOrders from '../../containers/YourOrders/YourOrders';
+import PlaceOrder from '../../containers/PlaceOrder/PlaceOrder';
 
         const Layout = (props) => {
             return (
@@ -12,6 +13,7 @@ import YourOrders from '../../containers/YourOrders/YourOrders';
                 <Nav />
                 <Route path="/" exact component={SmartHome} />
                 <Route path="/orders" component={YourOrders} />
+                <Route path="/place-order" component={PlaceOrder} />
             </Container>
             )
         };
