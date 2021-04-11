@@ -16,7 +16,6 @@ import Checkout from './Checkout/Checkout';
                     devices={props.chosenDevices}
                     price={props.totalPrice}
                     checkout={props.checkout}
-                    checkout={props.checkout}
                     disabled={props.disabled}
                 
                 />
